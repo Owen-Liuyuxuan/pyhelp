@@ -4,7 +4,7 @@ import numpy as np
 import time
 import uuid
 import os
-
+import warnings
 class NotebookFigure():
     """An extension of matplotlib figure to work with jupyter notebook's display module.
     Works by storing the figure as an image on disk and loading it to display on updating.
@@ -32,8 +32,6 @@ class NotebookFigure():
         
         self.image_path = image_path
         
-        if self.image_path != None:
-            self.fig.savefig(image_path, bbox_inches='tight')
             
         self.disp = None
         
@@ -42,9 +40,11 @@ class NotebookFigure():
         
         if self.image_path == None:
             self.temp_image_path = str(uuid.uuid4()) + "you_should_not_have_this_name.png"
-            
-        self.update()
-    
+        self.save_fig()
+
+        self.plot = self.getAxis().plot
+        self.imshow = self.getAxis().imshow
+
     def __del__(self):
         temp_image_path = getattr(self, 'temp_image_path', None)
         if temp_image_path is not None:
@@ -99,8 +99,11 @@ class NotebookFigure():
         """Update the lims(if set to True) and update all display instances"""
         if update_lims:
             self.update_lims()
+        if self.disp is None:
+            warnings.warn("The figure has not been displayed. Please display before update")
+            return
         image_path = self.image_path if self.image_path is not None else self.temp_image_path
-        self.fig.savefig(self.image_path, bbox_inches='tight')
+        self.fig.savefig(image_path, bbox_inches='tight')
         self.disp.update(Image(image_path))
     
     def getAxis(self,axis_num=0):
@@ -109,3 +112,15 @@ class NotebookFigure():
         col = axis_num%self.ncols
         return self.axes[row][col]
     
+    def save_fig(self):
+        image_path = self.image_path if self.image_path is not None else self.temp_image_path
+        self.fig.savefig(image_path, bbox_inches='tight')
+
+    def show(self):
+        self.display()
+        self.update()
+
+    def clear(self):
+        for i in range(self.nrows):
+            for j in range(self.ncols):
+                self.axes[i, j].clear()
