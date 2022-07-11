@@ -1,5 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
+
+from fire import Fire
+import sys
+from pyhelp.utils.utils import find_object
+
+
 __doc__=r"""print python documentation from command line.
 Example Usage:
 ```bash
@@ -7,15 +14,6 @@ pyhelp.pydocs matplotlib.pyplot
 pyhelp.pydocs torch.sigmoid
 ```
 """
-
-
-from fire import Fire
-import importlib
-import os
-import inspect
-import sys
-import pprint
-from pyhelp.utils.utils import find_object
     
 def read_doc(object_name):
     obj = find_object(object_name)
@@ -38,6 +36,7 @@ def main():
         object_name=sys.argv[1]
         string = read_doc(object_name)
         print(string)
-            
+
+
 if __name__ == '__main__':
     Fire(main)

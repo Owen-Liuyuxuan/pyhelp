@@ -24,7 +24,7 @@ class NotebookFigure():
         
         self.axes=np.array([self.axes]).reshape(nrows,ncols)
         
-        if decorate_fn != None:
+        if decorate_fn is not None:
             decorate_fn(self.axes)
         
         plt.close(self.fig)
@@ -38,7 +38,7 @@ class NotebookFigure():
         self.xlims = [[(None,None) for j in range(ncols)] for i in range(nrows)]
         self.ylims = [[(None,None) for j in range(ncols)] for i in range(nrows)]
         
-        if self.image_path == None:
+        if self.image_path is None:
             self.temp_image_path = str(uuid.uuid4()) + "you_should_not_have_this_name.png"
         self.save_fig()
 
@@ -53,10 +53,10 @@ class NotebookFigure():
     
      
     def set_image_path(self, image_path):
-        """Sets the path for saving the figure image. This path must be set(either in init 
+        """Sets the path for saving the figure image. This path must be set(either in init
         or using this function) before display can be called."""
         
-        self.image_path = image_path        
+        self.image_path = image_path
         self.fig.savefig(image_path, bbox_inches='tight')
     
     def update_lims(self):
@@ -74,10 +74,10 @@ class NotebookFigure():
                 
     def set_xlim(self,xlim,axis_num=0):
         """Set the xlims of the axes indexed row major wise starting from 0.
-        Effect will be visible only after update. 
+        Effect will be visible only after update.
         Setting either limit to None will make that limit update automatically."""
-        row = axis_num//self.ncols
-        col = axis_num%self.ncols
+        row = axis_num // self.ncols
+        col = axis_num % self.ncols
         self.xlims[row][col]=xlim
         self.update()
 
@@ -85,8 +85,8 @@ class NotebookFigure():
         """Set the ylims of the axes indexed row major wise, starting from 0.
         Effect will be visible only after update.
         Setting either limit to None will make that limit update automatically."""
-        row = axis_num//self.ncols
-        col = axis_num%self.ncols
+        row = axis_num // self.ncols
+        col = axis_num % self.ncols
         self.ylims[row][col]=ylim
         self.update()
         
@@ -108,8 +108,8 @@ class NotebookFigure():
     
     def getAxis(self,axis_num=0):
         """Get the axis in the subplot indexed row major wise starting from 0."""
-        row = axis_num//self.ncols
-        col = axis_num%self.ncols
+        row = axis_num // self.ncols
+        col = axis_num % self.ncols
         return self.axes[row][col]
     
     def save_fig(self):

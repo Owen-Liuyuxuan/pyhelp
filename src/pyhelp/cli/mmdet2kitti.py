@@ -37,7 +37,7 @@ def mmdet2kitti(pickle_file_path:str,
                 # results : [num_objects, 5]
                 strong_results = results[results[:, 4] > score_threshold] #[num_objects, 5]
                 for obj in strong_results:
-                    lines_to_write.append( "{} -1 -1 -10 {} {} {} {} -1 -1 -1 -1000 -1000 -1000 -10 {}\n".format(
+                    lines_to_write.append("{} -1 -1 -10 {} {} {} {} -1 -1 -1 -1000 -1000 -1000 -10 {}\n".format(
                         class_name, obj[0], obj[1], obj[2], obj[3], obj[4]
                     )
                     )
@@ -45,6 +45,7 @@ def mmdet2kitti(pickle_file_path:str,
 
 def main():
     Fire(mmdet2kitti)
+
 
 if __name__ == "__main__":
     Fire(mmdet2kitti)

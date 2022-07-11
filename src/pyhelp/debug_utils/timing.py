@@ -1,6 +1,4 @@
-from pytest import RecordedHookCall
 import torch
-import time
 def profiler(func, *args, **kwargs):
     with torch.autograd.profiler.profile(use_cuda=True, record_shapes=True, with_stack=True) as prof:
         result = func(*args, **kwargs)
@@ -18,6 +16,7 @@ def timer(func, *args, **kwargs):
     torch.cuda.synchronize()
     print(f"{func.__name__} time: {start.elapsed_time(end)}ms")
     return result
+
 
 if __name__ == '__main__':
     output = profiler(torch.min, torch.zeros(10000).cuda())

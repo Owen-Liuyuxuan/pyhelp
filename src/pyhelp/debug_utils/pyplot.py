@@ -76,6 +76,7 @@ def show_feature(image:np.ndarray, **kwargs):
     normed_image = np.linalg.norm(image, axis=-1)
     matplotlibplt.imshow(normed_image, **kwargs)
 
+
 show_dict={
     "single": show_single,
     "rgb": show_rgb,
@@ -102,4 +103,3 @@ def imshow(images, *args, **kwargs):
     
     matplotlibplt.show()
     matplotlibplt.savefig("debug.png")
-

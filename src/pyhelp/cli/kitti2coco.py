@@ -66,7 +66,6 @@ from fire import Fire
 import json
 import os
 from PIL import Image
-import numpy as np
 import tqdm
 import datetime
 from typing import Union, List, Dict, Any
@@ -154,7 +153,7 @@ def kitti2COCO(kitti_path:str,
             for line in file.readlines():
                 splits = line.split(' ')
                 cls_ = splits[0]
-                if not cls_ in KITTI_NAMES or float(splits[2]) > 2:
+                if cls_ not in KITTI_NAMES or float(splits[2]) > 2:
                     continue
                 label_id = KITTI_NAMES.index(cls_) + 1 # Notice the first index is expected to be background
                 

@@ -56,7 +56,6 @@ from fire import Fire
 import json
 import os
 import cv2
-import numpy as np
 import tqdm
 from typing import Union, List
 
@@ -126,7 +125,7 @@ def kitti2custom(kitti_path:str,
             for line in file.readlines():
                 splits = line.split(' ')
                 cls_ = splits[0]
-                if not cls_ in KITTI_NAMES:
+                if cls_ not in KITTI_NAMES:
                     continue
                 labels.append(KITTI_NAMES.index(cls_) + 1) # Notice the first index is expected to be background
                 bbox = [float(splits[i]) for i in range(4, 8)]
@@ -145,6 +144,3 @@ def main():
 
 if __name__ == '__main__':
     Fire(kitti2custom)
-    
-
-

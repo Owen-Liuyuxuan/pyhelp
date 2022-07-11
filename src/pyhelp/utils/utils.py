@@ -21,11 +21,11 @@ def find_object(object_string:str):
         module/class/function, None with not found
 
     Example:
-    1. 
+    1.
         import torch
         torch_module = find_object('torch')
         torch_module.sigmoid == torch.sigmoid
-    2. 
+    2.
         exp = find_object('numpy.exp')
         e = exp(1.0)
     """
@@ -38,7 +38,7 @@ def find_object(object_string:str):
         try:
             merged_name = merge_name(splitted_names[0:i])
             module = importlib.import_module(merged_name)
-        except:
+        except ModuleNotFoundError:
             continue
         is_found = True
         base_obj = module
@@ -51,4 +51,3 @@ def find_object(object_string:str):
     
     else:
         return None
-
