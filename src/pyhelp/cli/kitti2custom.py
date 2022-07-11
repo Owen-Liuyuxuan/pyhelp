@@ -57,7 +57,7 @@ import json
 import os
 import cv2
 import tqdm
-from typing import Union, List
+from typing import Union, List, Dict, Any
 
 KITTI_NAMES = ['Car', 'Van', 'Truck', 'Pedestrian', 'Person_sitting', 'Cyclist', 'Tram']
 
@@ -109,7 +109,7 @@ def kitti2custom(kitti_path:str,
         abs_image_path = os.path.join(image_path, image_file)
         abs_label_path = os.path.join(label_path, label_file)
 
-        json_object = dict()
+        json_object:Dict[str, Any] = dict()
         json_object['filename'] = abs_image_path
 
         # read image size

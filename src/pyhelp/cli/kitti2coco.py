@@ -136,7 +136,7 @@ def kitti2COCO(kitti_path:str,
         abs_image_path = os.path.join(image_path, image_file)
         abs_label_path = os.path.join(label_path, label_file)
 
-        image_obj = {
+        image_obj:Dict[str, Union[str, int, float]] = {
             "id":int(image_file.split(".")[0]),
         }
 
@@ -159,7 +159,7 @@ def kitti2COCO(kitti_path:str,
                 
                 bbox = [float(splits[i]) for i in range(4, 8)] #[left top right bottom]
                 coco_bbox = [bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]]
-                cocodet_label = {}
+                cocodet_label:Dict[str, Union[int, float, List, str]] = {}
                 cocodet_label["id"] = global_annotation_id
                 cocodet_label["category_id"] = label_id
                 cocodet_label["image_id"] = image_obj["id"]

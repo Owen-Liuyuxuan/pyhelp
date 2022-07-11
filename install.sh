@@ -1,3 +1,3 @@
 cd src
-pip install .
+pip3 install .
 cd ../
