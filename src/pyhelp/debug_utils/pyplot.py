@@ -9,6 +9,12 @@ image_std = np.array([0.229, 0.224, 0.225])
 rgb_mean = np.array([0.485, 0.456, 0.406]),
 
 def tensor2numpy(image):
+    """
+        Convert a tensor into a numpy array if it is a tensor.
+        Example:
+        >>> tensor2numpy(torch.tensor([1, 2, 3]))
+        array([1, 2, 3])
+    """
     if isinstance(image, torch.Tensor):
         return image.detach().cpu().numpy()
     elif isinstance(image, np.ndarray):
@@ -17,6 +23,10 @@ def tensor2numpy(image):
         raise NotImplementedError
 
 def deal_axis(image:np.ndarray):
+    """
+        Deal with the axis of images or features.
+        Commonly input with including  [B, C, H, W] / [B, H, W, 3] / [C, H, W] / [3, H, W] / [1, H, W] / [H, W, 3]
+    """
     # if [H, W] just passed through
     if len(image.shape) == 2:
         return image.copy()
